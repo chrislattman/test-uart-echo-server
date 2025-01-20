@@ -32,6 +32,7 @@ int main(void) {
         NULL);
     if (port == INVALID_HANDLE_VALUE) {
         print_error("\\\\.\\COM3");
+        return -1;
     }
 
     if (!FlushFileBuffers(port)) {

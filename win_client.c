@@ -18,7 +18,7 @@ static void print_error(const char* s) {
 int main(void) {
     HANDLE port;
     DCB state = { 0 };
-    const char *buf = "Hello\n";
+    const char *buf = "Hello\r\n";
     size_t nbyte, recv_idx = 0;
     DWORD res;
     char received[256];

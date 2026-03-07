@@ -7,7 +7,7 @@
 int main(void) {
     int fd;
     struct termios options;
-    const char *buf = "Hello\n";
+    const char *buf = "Hello\r\n";
     size_t nbyte, recv_idx = 0;
     ssize_t res;
     char received[256];

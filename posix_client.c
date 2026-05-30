@@ -3,6 +3,7 @@
 #include <string.h>
 #include <termios.h>
 #include <unistd.h>
+// #include <sys/stat.h>
 
 int main(void) {
     int fd;
@@ -11,6 +12,13 @@ int main(void) {
     size_t nbyte, recv_idx = 0;
     ssize_t res;
     char received[256];
+
+    // // To use a POSIX FIFO (named pipe) which forces this client to be a writer only:
+    // mkfifo("/tmp/fifo", 0666);
+    // fd = open("/tmp/fifo", O_WRONLY);
+
+    // // Reader (server) must call:
+    // fd = open("/tmp/fifo", O_RDONLY);
 
     fd = open("/dev/cu.usbserial-14320", O_RDWR | O_NOCTTY);
     if (fd < 0) {
@@ -61,5 +69,6 @@ int main(void) {
     received[recv_idx - 1] = '\0';
     puts(received);
 
+    close(fd);
     return 0;
 }

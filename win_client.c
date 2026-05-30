@@ -23,6 +23,28 @@ int main(void) {
     DWORD res;
     char received[256];
 
+    // // To use a named pipe which forces this client to be a writer only:
+    // port = CreateNamedPipeA("\\\\.\\pipe\\fifo",
+    //     PIPE_ACCESS_OUTBOUND,
+    //     PIPE_TYPE_BYTE | PIPE_READMODE_BYTE | PIPE_WAIT,
+    //     1,
+    //     4096,
+    //     4096,
+    //     0,
+    //     NULL);
+    // ConnectNamedPipe(port, NULL);
+
+    // // Reader (server) must call:
+    // port = CreateFileA("\\\\.\\pipe\\fifo",
+    //     GENERIC_READ,
+    //     0,
+    //     NULL,
+    //     OPEN_EXISTING,
+    //     0,
+    //     NULL);
+    // WaitNamedPipeA("\\\\.\\pipe\\fifo", NMPWAIT_WAIT_FOREVER);
+
+    // This COM3 "file" lives in the Windows Object Manager (instead of the file system as in POSIX)
     port = CreateFileA("\\\\.\\COM3",
         GENERIC_READ | GENERIC_WRITE,
         0,
@@ -93,5 +115,6 @@ int main(void) {
     received[recv_idx - 1] = '\0';
     puts(received);
 
+    CloseHandle(port);
     return 0;
 }
